@@ -1,0 +1,10 @@
+[2018-04-12T15:20:06.518] [INFO] default - Server running at port 3000
+[2018-04-12T16:29:54.095] [INFO] default - Server running at port 3000
+[2018-04-12T16:30:44.514] [INFO] default - Server running at port 3000
+[2018-04-12T16:31:47.162] [DEBUG] default - inside getMovie method
+[2018-04-12T16:33:42.434] [INFO] default - Server running at port 3000
+[2018-04-12T16:33:45.405] [DEBUG] default - inside getMovie method
+[2018-04-12T16:33:50.375] [DEBUG] default - inside addMovie method
+[2018-04-12T16:34:18.779] [DEBUG] default - inside getMovie method
+[2018-04-12T16:34:22.237] [DEBUG] default - inside updateMovie method
+[2018-04-12T16:34:26.002] [DEBUG] default - inside deleteMovie method

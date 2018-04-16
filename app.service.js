@@ -1,6 +1,8 @@
+const bodyParser = require('body-parser');
 const logger = require('./logger');
 const { serverConfig } = require('./config').appConfig;
 const api  = require('./api');
+let db = require('./database');
 
 
 // Event listener for HTTP server "onError" event.
@@ -23,6 +25,22 @@ function onError(error) {
   }
 }
 
+/* setting middleware with some basic module*/
+function setAppMiddleware(app) {
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended : false}));
+}
+
+
+/* create database connection */
+function connectToDatabase() {
+  db.createMongoConnection();
+  dbConnection = db.getMongoConnection();
+  dbConnection.on('error',db.onError);
+  dbConnection.once('open',db.onSuccess);
+}
+
+
 // Event listener for HTTP server "listening" event.
 function onListening() {
 	logger.info('Server running at port 3000');
@@ -36,6 +54,8 @@ function apiSetUp(app) {
 
 module.exports = {
 	onError,
+  connectToDatabase,
 	onListening,
-  apiSetUp
+  apiSetUp,
+  setAppMiddleware
 }

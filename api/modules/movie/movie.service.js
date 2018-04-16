@@ -4,8 +4,8 @@ const Movie = require('./../../../models/movie');
 
 
 /* handle to get all favourite movie form database */
-function getfavMovies() {
-	logger.debug('Inside getfavMovies service method');
+function getFavMovies() {
+	logger.debug('Inside getFavMovies service method');
 	return new Promise((resolve,reject)=>{
 		Movie.find({},function(err, movies) {
 			if(err) {
@@ -74,7 +74,7 @@ function deleteFavMovie(movieId) {
 }
 
 module.exports = {
-	getfavMovies,
+	getFavMovies,
 	persistFavMovie,
 	updateFavMovie,
 	deleteFavMovie

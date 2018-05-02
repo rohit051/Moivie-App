@@ -6,7 +6,7 @@ const logger = require('../../../logger');
 function getFavMovie(req,res){
 	logger.debug('inside getFavMovie method');
 	try {
-		movieService.getfavMovies().then((response)=>{
+		movieService.getFavMovies().then((response)=>{
 			logger.debug('Inside get getfavMovies on success response');
 			logger.info(response.message);
 			res.status(response.status).send(response.data);
@@ -63,13 +63,15 @@ function deleteFavMovie(req,res){
 	logger.debug('inside deleteMovie method');
 	try {
 		let movieId = req.params.movieId;
+		console.log('movieId',movieId);
 		movieService.deleteFavMovie(movieId).then((response)=>{
 			logger.debug('Inside deleteFavMovie on success response');
 			logger.info(response.message);
 			res.status(response.status).send(response.message);
 		}, (err)=> {
 			logger.error('Inside deleteFavMovie on error response');
-			res.status(err.status).send(err);
+			console.log(err);
+			// res.status(err.status).send(err);
 		})
 	} catch (err) {
 		logger.error('Unexpected error on movieService.deleteFavMovie method', err);

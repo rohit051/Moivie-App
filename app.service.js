@@ -3,7 +3,10 @@ const logger = require('./logger');
 const { serverConfig } = require('./config').appConfig;
 const api  = require('./api');
 let db = require('./database');
+const session = require('express-session');
+const passport = require('passport');
 
+require('./auth/passport')(passport); // pass passport for configuration
 
 // Event listener for HTTP server "onError" event.
 
@@ -15,13 +18,13 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      logger.error(bind + ' requires elevated privileges');
-      break;
+    logger.error(bind + ' requires elevated privileges');
+    break;
     case 'EADDRINUSE':
-      logger.error(bind + ' is already in use');
-      break;
+    logger.error(bind + ' is already in use');
+    break;
     default:
-      throw error;
+    throw error;
   }
 }
 
@@ -30,7 +33,6 @@ function setAppMiddleware(app) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended : false}));
 }
-
 
 /* create database connection */
 function connectToDatabase() {
@@ -51,11 +53,20 @@ function apiSetUp(app) {
 	app.use('/api', api);
 }
 
+/* setting passport authentication */
+function setPassport(app) {
+  app.use(session({
+    secret: 'ROhit Pal', // session secret
+}));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+}
 
 module.exports = {
 	onError,
   connectToDatabase,
-	onListening,
+  onListening,
   apiSetUp,
-  setAppMiddleware
+  setAppMiddleware,
+  setPassport
 }

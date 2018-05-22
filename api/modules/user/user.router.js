@@ -7,7 +7,7 @@ router.post('/register', userCtrl.register);
 
 /* api to login user */
 router.post('/login', passport.authenticate('local-login'), function(req,res){
-res.send('authenticated');
+	res.send('authenticated');
 });
 
 

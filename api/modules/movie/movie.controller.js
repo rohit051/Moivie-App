@@ -50,7 +50,7 @@ function updateFavMovie(req,res){
 			logger.info(response.message);
 			res.status(response.status).send(response.message);
 		}, (err)=> {
-			logger.error('Inside updateFavMovie on error response');
+			logger.error('Inside updateFavMovie on error response',err);
 			res.status(err.status).send(err);
 		})
 	} catch (err) {
@@ -63,15 +63,13 @@ function deleteFavMovie(req,res){
 	logger.debug('inside deleteMovie method');
 	try {
 		let movieId = req.params.movieId;
-		console.log('movieId',movieId);
 		movieService.deleteFavMovie(movieId).then((response)=>{
 			logger.debug('Inside deleteFavMovie on success response');
 			logger.info(response.message);
 			res.status(response.status).send(response.message);
 		}, (err)=> {
 			logger.error('Inside deleteFavMovie on error response');
-			console.log(err);
-			// res.status(err.status).send(err);
+			res.status(err.status).send(err);
 		})
 	} catch (err) {
 		logger.error('Unexpected error on movieService.deleteFavMovie method', err);

@@ -1,16 +1,10 @@
 const router = require('express').Router();
 const movieCtrl = require('./movie.controller');
+const auth =  require('./../../../utills/isAuthenticate');
 
 
 /* middleware for user authentication */
-router.use((req,res,next)=>{
-	console.log('inside isAuthenticated ');
-	if(req.isAuthenticated()){
-		next();
-	} else {
-		res.send('unauthorised user');
-	}
-});
+router.use(auth.isAuthenticated);
 
 /* api to get a favourite movie*/
 router.get('/', movieCtrl.getFavMovie);
